@@ -1,0 +1,49 @@
+//mastering-sass/ch02/scss/helpers/_mixins.scss
+@mixin base-font-family-sizing($current-font-family: $base-font-family)
+{
+    //1.
+    //Check what $base-font-family we are using...
+    //If $base-font-family-serif we need to multiply
+    //our $base-font-size by 1.25 and increase
+    //our $base-line-height accordingly
+
+    //2.
+    //Otherwise, a font-family we haven't set
+    //specific values for has been set so we
+    //should leave the browser defaults in place.
+
+    font-size: base-font-sizes-calc();//including the function
+    font-family: $current-font-family;
+    line-height: $base-line-height;
+    margin-bottom: $base-font-size * $base-line-height;
+    // content: base-headings-sizes-calc();
+
+    // @if $current-font-family == $base-font-family-serif {
+    //     //1
+    //     font-size: $base-font-size * 1.15;
+    // }
+    // @else{
+    //     //2. If $base-font-family-code you should see...
+    //     font-size: $base-font-size;
+    // }
+
+}
+
+@mixin base-headings-font-family-sizing($heading: 2, $current-font-family: $base-headings-font-family){
+    font-family: $current-font-family;
+    font-size: current-font-sizes-calc($heading, $current-font-family);
+    line-height: base-heading-line-height($heading, $current-font-family);
+
+
+}
+
+@mixin base-headings{
+    $i : 1;
+    @each $headings, $family in $base-headings{
+        #{$headings}{
+            @include base-headings-font-family-sizing($i, $family);
+        }
+        $i : $i + 1;
+    }
+
+}
